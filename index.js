@@ -4,7 +4,7 @@
 // Todo: 第一版目标: 首先无视加密技术,普通的跑通整个流程(要求无错)
 //var http = require('http');
 //var querystring = require('querystring');
-var events = require('events');
+/*var events = require('events');
 var redis = require('redis');
 var client = redis.createClient('6379', '127.0.0.1');
 
@@ -21,13 +21,18 @@ var httpServer = require('./services/httpServer')({
     Message: Message,
     eventEmitter: eventEmitter,
     client: client
-});
+});*/
+
+var appConfig = require('./core/appConfig'),
+    httpConfig = require('./core/httpConfig');
+
+appConfig.httpServer.create(appConfig, httpConfig);
 /*
 var wsCounter = 0;
 var wsSet = {};
 */
 
-client.set('msgCounter', 0, function(error, result) {
+/*client.set('msgCounter', 0, function(error, result) {
     if (error) {
         console.log('error');
     } else {
@@ -37,7 +42,7 @@ client.set('msgCounter', 0, function(error, result) {
 
 client.on('ready', function(err) {
     console.log('ready');
-});
+});*/
 /*
 
 var app = http.createServer(function(request, response) {

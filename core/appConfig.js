@@ -16,17 +16,21 @@ module.exports = (function() {
         // HTTPServer
         http = require('http'),
         querystring = require('querystring'),
+        createHTTPServer = require('../services/http/createServer'),
+        create = require('../services/http/core'),
         // WebSocketServer
         wsConfig = require('./wsConfig'),
         WebSocketServer = require('ws').Server,
-        wss = new WebSocketServer(wsConfig.port);
+        wss = new WebSocketServer(wsConfig);
 
     return {
         redisClient: client,
         eventEmitter: eventEmitter,
         httpServer: {
             server: http,
-            queryString: querystring
+            queryString: querystring,
+            createDetail: createHTTPServer,
+            create: create
         },
         webSocketServer: {
             server: wss
