@@ -27,6 +27,8 @@ var appConfig = require('./core/appConfig'),
     httpConfig = require('./core/httpConfig');
 
 appConfig.httpServer.create(appConfig, httpConfig);
+appConfig.webSocketServer.create(appConfig.webSocketServer, appConfig.webSocketServer.onMessage);
+
 /*
 var wsCounter = 0;
 var wsSet = {};

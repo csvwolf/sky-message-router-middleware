@@ -17,11 +17,13 @@ module.exports = (function() {
         http = require('http'),
         querystring = require('querystring'),
         createHTTPServer = require('../services/http/createServer'),
-        create = require('../services/http/core'),
+        createHTTP = require('../services/http/core'),
         // WebSocketServer
         wsConfig = require('./wsConfig'),
         WebSocketServer = require('ws').Server,
-        wss = new WebSocketServer(wsConfig);
+        wss = new WebSocketServer(wsConfig),
+        onMessage = require('../services/websocket/messageCallback'),
+        createWS = require('../services/websocket/createServer');
 
     return {
         redisClient: client,
@@ -30,10 +32,12 @@ module.exports = (function() {
             server: http,
             queryString: querystring,
             createDetail: createHTTPServer,
-            create: create
+            create: createHTTP
         },
         webSocketServer: {
-            server: wss
+            server: wss,
+            onMessage: onMessage,
+            create: createWS
         }
     }
 })();
