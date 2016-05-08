@@ -1,9 +1,13 @@
 /**
  * Created by SkyAo on 16/5/7.
+ *
+ * 消息处理的回调函数
  */
-module.exports = function(wsCounter, wsSet) {
+var commandSelector = require('../../controller/selectCommandController');
+
+module.exports = function(appConfig, wsServer, ws) {
     return function(message) {
         var msg = JSON.parse(message);
-        console.log(msg);
+        commandSelector(msg, wsServer, appConfig, ws);
     }
 };

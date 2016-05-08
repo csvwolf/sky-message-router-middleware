@@ -24,10 +24,10 @@ var httpServer = require('./services/httpServer')({
 });*/
 
 var appConfig = require('./core/appConfig'),
-    httpConfig = require('./core/httpConfig');
+    httpConfig = require('./core/httpConfig'),
+    wsServer = appConfig.webSocketServer.create(appConfig, appConfig.webSocketServer.onMessage);
 
-appConfig.httpServer.create(appConfig, httpConfig);
-appConfig.webSocketServer.create(appConfig.webSocketServer, appConfig.webSocketServer.onMessage);
+appConfig.httpServer.create(appConfig, httpConfig, wsServer);
 
 /*
 var wsCounter = 0;

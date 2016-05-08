@@ -1,25 +1,35 @@
 /**
  * Created by SkyAo on 16/5/7.
+ *
+ * WebSocket功能
  */
-module.exports = function(wsServer, onMessage) {
+module.exports = function(appConfig, onMessage) {
     var wsCounter = 0,
         wsSet = {};
-    console.log(wsServer);
-    wsServer.server.on('connection', onConnection(onMessage, wsCounter, wsSet));
 
-    return {
-        getWSCounter: function() {
-            return wsCounter;
-        },
+    this.getWSCounter = function() {
+        return wsCounter;
+    };
 
-        getWSSet: function() {
-            return wsSet;
-        }
-    }
+    this.getWSSet = function() {
+        return wsSet;
+    };
+
+    this.increseWSCounter = function() {
+        wsCounter++;
+    };
+
+    this.initType = function(type) {
+        wsSet[type] = {};
+    };
+
+    appConfig.webSocketServer.server.on('connection', onConnection(onMessage, appConfig, this));
+
+    return this;
 };
 
-function onConnection (onMessage, wsCounter, wsSet) {
+function onConnection (onMessage, appConfig, wsServer) {
     return function(ws) {
-        ws.on('message', onMessage(wsCounter, wsSet));
+        ws.on('message', onMessage(appConfig, wsServer,ws));
     };
 }

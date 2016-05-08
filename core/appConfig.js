@@ -23,7 +23,9 @@ module.exports = (function() {
         WebSocketServer = require('ws').Server,
         wss = new WebSocketServer(wsConfig),
         onMessage = require('../services/websocket/messageCallback'),
-        createWS = require('../services/websocket/createServer');
+        createWS = require('../services/websocket/createServer'),
+        // Common
+        objMethods = require('../common/objMethods');
 
     return {
         redisClient: client,
@@ -38,6 +40,9 @@ module.exports = (function() {
             server: wss,
             onMessage: onMessage,
             create: createWS
+        },
+        common: {
+            objMethods: objMethods
         }
     }
 })();

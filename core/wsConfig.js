@@ -6,5 +6,5 @@
 
 
 module.exports = {
-    port: 8888
+    port: 8888  // websocket服务端端口设置
 };

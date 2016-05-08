@@ -25,7 +25,7 @@ module.exports = function Message(post, client, callback) {
         } else {
             self.id = result;
             //console.log(result);
-            callback();
+            callback(self);
         }
     });
 };

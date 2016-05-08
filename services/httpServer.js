@@ -58,6 +58,7 @@ module.exports = function(config, callback) {
                         var self = this._events.poolInserted;
                         //console.log(self);
                         config.client.hgetall('msg:' + msg.id, function(err, result) {
+                            console.log(err);
                             console.log(result);
                             if (result) {
                                 console.log('success');
