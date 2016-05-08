@@ -25,12 +25,16 @@ module.exports = function(appConfig, post, wsServer, response, callback) {
                         targetWs.elem.ws.send(JSON.stringify(message));
                     } else {
                         console.log('error input');
+                        response.write(JSON.stringify({'error': '401', content: 'error input'}));
+                        response.end();
                         return;
                     }
                 } catch (e) {
                     if (length == 0) {
                         console.log('there is no server now');
-                        break;
+                        response.write(JSON.stringify({'error': '404', content: 'no server now'}));
+                        response.end();
+                        return;
                     } else {
                         console.log(typeList);
                         delete typeList[targetWs.key];

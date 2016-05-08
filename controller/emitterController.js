@@ -6,7 +6,6 @@ exports.add = function(appConfig, msg, response) {
     appConfig.eventEmitter.addListener('poolInserted', function() {
         var self = this._events.poolInserted;
         //console.log(self);
-        console.log(msg);
         appConfig.redisClient.hgetall('msg:' + msg.id, function(err, result) {
             console.log(err);
             console.log(result);

@@ -7,7 +7,6 @@ var count = 0;
 
 module.exports = function(serversLength) {
     count++;
-    console.log(count);
     return function() {
         return count % serversLength;
     };
