@@ -20,7 +20,7 @@ module.exports = function(appConfig, post, wsServer, response, callback) {
                     if (post.type) {
                         typeList = wsServer.getWSSet()[post.type];
                         length = objectMethods.getObjectLength(typeList);
-                        selectorNum = balanceController(length);
+                        selectorNum = balanceController(length)();
                         targetWs = objectMethods.getSpecificElementOfObj(typeList, selectorNum);
                         targetWs.elem.ws.send(JSON.stringify(message));
                     } else {

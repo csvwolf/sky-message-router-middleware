@@ -3,10 +3,12 @@
  *
  * 均衡轮询服务器，返回服务器编号
  */
-module.exports = function(serversLength) {
-    var count = 0;
+var count = 0;
 
-    return (function() {
+module.exports = function(serversLength) {
+    count++;
+    console.log(count);
+    return function() {
         return count % serversLength;
-    })();
+    };
 };
