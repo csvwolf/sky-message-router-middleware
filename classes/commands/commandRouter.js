@@ -1,5 +1,7 @@
 /**
  * Created by SkyAo on 16/5/8.
+ *
+ * 命令类的路由
  */
 var newCommand = require('./new'),
     messageCommand = require('./message'),

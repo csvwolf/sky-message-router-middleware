@@ -4,6 +4,7 @@
  * Object自定义函数列表
  */
 module.exports = {
+    // 判断一个对象是否为空
     isEmpty: function(object) {
         var elem;
         for (elem in object) {
@@ -14,6 +15,7 @@ module.exports = {
         return false;
     },
 
+    // 获取一个对象（哈希表）的长度
     getObjectLength: function(object) {
         var length = 0,
             elem;
@@ -26,6 +28,7 @@ module.exports = {
         return length;
     },
 
+    // 获取哈希表中第n个值
     getSpecificElementOfObj: function(object, index) {
         var elem,
             counter = 0,

@@ -19,6 +19,7 @@ module.exports = function Message(post, client, callback) {
     this.type = post.type;
     this.encrypt = post.encrypt;
     var self = this;
+    // 在Redis里自增计数并且赋值给id
     client.incr('msgCounter', function(error, result) {
         if (error) {
             console.log('error');
