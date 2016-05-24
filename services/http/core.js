@@ -50,6 +50,13 @@ function endFunction(httpServer, appConfig, wsServer) {
         return function() {
             //console.log(content);
             var post = httpServer.queryString.parse(content.content);
+            //console.log(post);
+            if (!content.content) {
+                //console.log('empty');
+                response.end(JSON.stringify({'error': '403', 'content': 'Data Format Error!'}));
+
+                return;
+            }
 
             serverSelector(appConfig, post, wsServer, response, emitter);
         }

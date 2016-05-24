@@ -19,7 +19,8 @@ module.exports = function(appConfig, post, wsServer, response, callback) {
 
             while (1) {
                 try {
-                    if (post.type) {
+                    if (objectMethods.isEmpty(post) && post.type) {
+                        console.log(post);
                         typeList = wsServer.getWSSet()[post.type];
                         length = objectMethods.getObjectLength(typeList);
                         selectorNum = balanceController(length)();
