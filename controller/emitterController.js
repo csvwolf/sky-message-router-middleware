@@ -4,6 +4,7 @@
  * 存入Redis后的事件的后续处理
  */
 exports.add = function(appConfig, msg, response) {
+    var post = {};
     console.log('EmitterController', msg);
 
     appConfig.eventEmitter.addListener('poolInserted' + msg.id, function() {
@@ -20,7 +21,10 @@ exports.add = function(appConfig, msg, response) {
 
                 //console.log(self);
 
-                response.end(JSON.stringify(result));
+                post.content = result.content;
+                post.error = '200';
+                // 返回值给HTTP
+                response.end(JSON.stringify(post));
 
                 appConfig.redisClient.del('msg:' + msg.id, function(err, reply) {
                     //console.log(reply);

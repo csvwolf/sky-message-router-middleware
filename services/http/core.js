@@ -35,10 +35,15 @@ function onFunction (httpServer) {
 /**
  * 处理结束操作的函数
  * @param httpServer
+ * @param appConfig
+ * @param wsServer
  * @returns {Function}
  */
 function endFunction(httpServer, appConfig, wsServer) {
     return function (request, response, content) {
+        response.setTimeout(120000, function() {
+            response.end(JSON.stringify({'error': '501', 'content': 'Servers are busy!'}));
+        });
         return function() {
             var post = httpServer.queryString.parse(content.content);
 
