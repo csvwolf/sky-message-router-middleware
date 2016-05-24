@@ -14,10 +14,32 @@ var Post = require('../../classes/post');
 module.exports = function(onFunction, endFunction) {
     return function (request, response) {
         var header = {
-            'Content-Type': 'text/plain',
-            'Access-Control-Allow-Origin': '*'
-            },
-            content = new Post();
+            'Access-Control-Allow-Origin': '*',
+            'Access-Control-Allow-Methods': 'GET,OPTIONS,POST,HEAD',
+            "Access-Control-Allow-Headers": "Origin, Content-Type,Content-Length,Authorization, Accept,X-Requested-With",
+            'Content-Type': 'application/json'
+
+            };
+
+        // 判断是否为跨域所引发的OPTIONS 如果是 则过滤掉该请求
+        if (request.method === 'OPTIONS') {
+            console.log('hello');
+            response.writeHead(200, header);
+            request.on('data', function() {
+            //    console.log('data');
+            });
+            request.on('end', function() {
+            //    console.log('endingOPTIONS');
+                response.end('');
+            });
+            return;
+        }
+
+         var content = new Post();
+
+
+
+        //console.log(content);
 
         response.writeHead(200, header);
 

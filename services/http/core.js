@@ -26,7 +26,10 @@ module.exports = function(appConfig, httpConfig, wsServer) {
  */
 function onFunction (httpServer) {
     return function(request, response, content) {
+        //console.log(request);
+        //console.log(response);
         return function(chunk) {
+            //console.log('chunk', chunk);
             content.addContent(chunk);
         }
     }
@@ -41,10 +44,11 @@ function onFunction (httpServer) {
  */
 function endFunction(httpServer, appConfig, wsServer) {
     return function (request, response, content) {
-        response.setTimeout(120000, function() {
+        response.setTimeout(30000, function() {
             response.end(JSON.stringify({'error': '501', 'content': 'Servers are busy!'}));
         });
         return function() {
+            //console.log(content);
             var post = httpServer.queryString.parse(content.content);
 
             serverSelector(appConfig, post, wsServer, response, emitter);

@@ -15,6 +15,8 @@ module.exports = function(appConfig, post, wsServer, response, callback) {
 
     if (objectMethods.isEmpty(post)) {
         msg = new Message(post, appConfig.redisClient, function(message) {
+            console.log('serverSelectorControllerBefore: ', message);
+
             while (1) {
                 try {
                     if (post.type) {
