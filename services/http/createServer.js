@@ -22,8 +22,8 @@ module.exports = function(onFunction, endFunction) {
             };
 
         // 判断是否为跨域所引发的OPTIONS 如果是 则过滤掉该请求
-        if (request.method === 'OPTIONS') {
-            console.log('hello');
+        if (request.method !== 'POST') {
+            //console.log('hello');
             response.writeHead(200, header);
             request.on('data', function() {
             //    console.log('data');
