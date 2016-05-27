@@ -8,6 +8,6 @@ module.exports = function(msg, wsServer, appConfig, ws) {
     var options = commandRouter(msg, wsServer, appConfig, ws),
         option = msg.command || 'default',
         command = options[option + 'Command'];
-
+    console.log(msg);
     runCommand(new command());
 };

@@ -7,7 +7,12 @@ var commandSelector = require('../../controller/selectCommandController');
 
 module.exports = function(appConfig, wsServer, ws) {
     return function(message) {
-        var msg = typeof message == 'object' ? JSON.parse(message) : {};
+        var msg;
+        try {
+            msg = JSON.parse(message);
+        } catch (e) {
+            msg = {};
+        }
         commandSelector(msg, wsServer, appConfig, ws);
     }
 };
