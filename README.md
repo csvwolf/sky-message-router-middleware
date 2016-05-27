@@ -67,6 +67,7 @@ Transfer-Encoding: chunked
 | type | string | 请求已注册的服务器内容类型 |
 | command | string | 发送的消息类型 | | content | string | 正文内容 |
 | encrypt | boolean | 决定是否加密传输（该字段暂时废弃，不用传输亦可）| 
+
 前端command列表：
 
 | 命令 | 说明 |
@@ -98,7 +99,7 @@ Transfer-Encoding: chunked
 
 示例后端程序，采用Python2.7 + `WebSocket-Client`包。
 
-```
+```python
 from websocket import create_connection
 import json
 ws = create_connection('ws://localhost:8888')
@@ -119,43 +120,44 @@ while True:
 
 如果是正常接收，则获取到的数据形如：
 
-```
+```javascript
 {"content":"2333","type":"ass","id":11236,"command":"message","time":1464327137745}
 ```
 
-content: 接收到的正文内容
-type: 该客户端请求类型
-id: 客户端请求编号
-command:message 表示传入的是正文类型，请求服务端处理
-time: 请求发出的时间戳
+- content: 接收到的正文内容
+- type: 该客户端请求类型
+- id: 客户端请求编号
+- command:message 表示传入的是正文类型，请求服务端处理
+- time: 请求发出的时间戳
 
 如果发送错误的数据，则会返回：
 
-```
+```javascript
 {"command":"error","content":"Error, Not Standard Data Format(4002)","time":1464326848208}
 ```
 
-command: error 表示从后端发出的内容错误
-content: 具体的错误类型
-time: 发送消息的时间戳
+- command: error 表示从后端发出的内容错误
+- content: 具体的错误类型
+- time: 发送消息的时间戳
 
 后端发送包格式：
 
 后端需要按照两步进行创建才可以注册成功。
 
 首先先发送create：
-```
+
+```javascript
 {'type': 'ass', 'descrpiton': 'hello world', 'command': 'new', 'content': None}
 ```
 
-type: 服务器注册的类型，前端根据此类型请求对应后端服务器
-command: new 表示注册一个服务到中间件
-descrpition: 后端描述说明
-content: 可留空
+- type: 服务器注册的类型，前端根据此类型请求对应后端服务器
+- command: new 表示注册一个服务到中间件
+- descrpition: 后端描述说明
+- content: 可留空
 
 然后处理数据并返回即可：
 
-```
+```javascript
 { content: '2333',
   command: 'message',
   type: 'ass',
@@ -163,8 +165,8 @@ content: 可留空
   time: 1464327137745 }
 ```
 
-command: 需要返回到前端的为message，如果需要返回给中间件可定义为error（暂未定义，日后会添加）
-content: 正文内容
-type: 中间件内容原样传出即可
-id: 中间件传入内容原样传出即可
-time: 返回响应时间戳
+- command: 需要返回到前端的为message，如果需要返回给中间件可定义为error（暂未定义，日后会添加）
+- content: 正文内容
+- type: 中间件内容原样传出即可
+- id: 中间件传入内容原样传出即可
+- time: 返回响应时间戳
