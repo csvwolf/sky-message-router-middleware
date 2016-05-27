@@ -11,7 +11,7 @@ module.exports = function(msg, wsServer, appConfig, ws) {
     var Default = function() {
         this.run = function () {
             ws.send(JSON.stringify({
-                command: 'message',
+                command: 'error',
                 content: 'Error, Not Standard Data Format(4002)',
                 time: new Date().getTime()
             }));

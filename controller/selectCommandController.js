@@ -6,13 +6,8 @@ var runCommand = require('./runCommandController'),
 
 module.exports = function(msg, wsServer, appConfig, ws) {
     var options = commandRouter(msg, wsServer, appConfig, ws),
-        command;
-
-    try {
-        command = options[msg.command+'Command'];
-    } catch (e){
-        command = options['defaultCommand'];
-    }
+        option = msg.command || 'default',
+        command = options[option + 'Command'];
 
     runCommand(new command());
 };
