@@ -21,6 +21,7 @@ module.exports = function(msg, wsServer, appConfig, ws) {
                 //console.log(wsSet[msg.type]);
                 // counter计数器增加
                 wsServer.increseWSCounter();
+                appConfig.log.info('创建Websocket Handle：', msg);
             }
         };
     };

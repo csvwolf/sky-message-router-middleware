@@ -15,12 +15,10 @@ module.exports = function(appConfig, post, wsServer, response, callback) {
 
     if (objectMethods.isEmpty(post)) {
         msg = new Message(post, appConfig.redisClient, function(message) {
-            console.log('serverSelectorControllerBefore: ', message);
-
             while (1) {
                 try {
                     if (objectMethods.isEmpty(post) && post.type) {
-                        console.log(post);
+                        appConfig.log.info('发送内容', post);
                         typeList = wsServer.getWSSet()[post.type];
                         length = objectMethods.getObjectLength(typeList);
                         selectorNum = balanceController(length)();
@@ -29,29 +27,26 @@ module.exports = function(appConfig, post, wsServer, response, callback) {
                         message.time = +new Date();
                         targetWs.elem.ws.send(JSON.stringify(message));
                     } else {
-                        console.log('error input');
+                        appConfig.log.info('输入错误', msg);
                         response.write(JSON.stringify({'error': '401', content: 'error input'}));
                         response.end();
                         return;
                     }
                 } catch (e) {
                     if (length == 0) {
-                        console.log('there is no server now');
+                        appConfig.log.info('目前没有可用服务器', msg);
                         response.write(JSON.stringify({'error': '404', content: 'no server now'}));
                         response.end();
                         return;
                     } else {
-                        console.log(typeList);
                         delete typeList[targetWs.key];
-                        console.log('delete the current server in the list');
+                        appConfig.log.info('删除指定的key', targetWs.key);
                     }
                     continue;
                 }
 
                 break;
             }
-
-            console.log('serverSelectorController: ', message);
 
             callback(appConfig, message, response);
         });

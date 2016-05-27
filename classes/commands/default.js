@@ -10,6 +10,7 @@ module.exports = function(msg, wsServer, appConfig, ws) {
 
     var Default = function() {
         this.run = function () {
+            appConfig.log.info('To WebSocket: 格式错误');
             ws.send(JSON.stringify({
                 command: 'error',
                 content: 'Error, Not Standard Data Format(4002)',

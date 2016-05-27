@@ -45,6 +45,7 @@ function onFunction (httpServer) {
 function endFunction(httpServer, appConfig, wsServer) {
     return function (request, response, content) {
         response.setTimeout(30000, function() {
+            appConfig.log.info('响应超时，服务器正忙');
             response.end(JSON.stringify({'error': '501', 'content': 'Servers are busy!'}));
         });
         return function() {
@@ -53,6 +54,7 @@ function endFunction(httpServer, appConfig, wsServer) {
             //console.log(post);
             if (!content.content) {
                 //console.log('empty');
+                appConfig.log.info('格式错误');
                 response.end(JSON.stringify({'error': '403', 'content': 'Data Format Error!'}));
 
                 return;

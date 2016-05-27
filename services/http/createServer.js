@@ -18,7 +18,6 @@ module.exports = function(onFunction, endFunction) {
             'Access-Control-Allow-Methods': 'GET,OPTIONS,POST,HEAD',
             "Access-Control-Allow-Headers": "Origin, Content-Type,Content-Length,Authorization, Accept,X-Requested-With",
             'Content-Type': 'application/json'
-
             };
 
         // 判断是否为跨域所引发的OPTIONS 如果是 则过滤掉该请求

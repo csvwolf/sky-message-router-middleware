@@ -5,7 +5,7 @@
  */
 exports.add = function(appConfig, msg, response) {
     var post = {};
-    console.log('EmitterController', msg);
+    appConfig.log.info('EmitterController', msg);
 
     appConfig.eventEmitter.addListener('poolInserted' + msg.id, function() {
         var self = this._events['poolInserted' + msg.id];   // 获取事件本身
@@ -14,9 +14,10 @@ exports.add = function(appConfig, msg, response) {
             if (result) {
                 try {
                     appConfig.eventEmitter.removeListener('poolInserted' + msg.id, self);    // 删除监听，不再对此做出操作
+                    appConfig.log.info('删除监听:' + msg.id, msg);
                 } catch (e) {
-                    console.log('emitterController: delete err');
-                    console.log(e);
+                    appConfig.log.warn('删除监听error', msg);
+                    appConfig.log.warn(e);
                 }
 
                 //console.log(self);
@@ -31,7 +32,7 @@ exports.add = function(appConfig, msg, response) {
                 });
 
             } else {
-                console.log('error');
+                appConfig.log.info('no result for ', msg);
             }
         });
     });

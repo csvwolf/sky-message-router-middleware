@@ -4,7 +4,7 @@
  * Middleware 配置文件
  */
 
-module.exports = (function() {
+module.exports = function(dirname) {
     var
         // Redis-Server相关
         redisConfig = require('./redisConfig'),
@@ -24,6 +24,10 @@ module.exports = (function() {
         wss = new WebSocketServer(wsConfig),
         onMessage = require('../services/websocket/messageCallback'),
         createWS = require('../services/websocket/createServer'),
+        // Log
+        winston = require('winston'),
+        fs = require('fs'),
+        log = require('./logConfig')(dirname, fs, winston),
         // Common
         objMethods = require('../common/objMethods');
 
@@ -41,8 +45,9 @@ module.exports = (function() {
             onMessage: onMessage,
             create: createWS
         },
+        log: log,
         common: {
             objMethods: objMethods
         }
     }
-})();
+}
