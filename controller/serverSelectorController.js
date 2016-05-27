@@ -25,6 +25,8 @@ module.exports = function(appConfig, post, wsServer, response, callback) {
                         length = objectMethods.getObjectLength(typeList);
                         selectorNum = balanceController(length)();
                         targetWs = objectMethods.getSpecificElementOfObj(typeList, selectorNum);
+                        message.command = 'message';
+                        message.time = +new Date();
                         targetWs.elem.ws.send(JSON.stringify(message));
                     } else {
                         console.log('error input');
