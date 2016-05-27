@@ -10,7 +10,7 @@ module.exports = function(msg, wsServer, appConfig, ws) {
     //console.log(msg);
     var Message = function() {
         this.run = function() {
-            if (msg.content) {
+            if (msg.content && msg.id) {
                 appConfig.redisClient.HMSET('msg:' + msg.id, msg, function() {
                     appConfig.eventEmitter.emit('poolInserted' + msg.id);        // 通知：已经插入redis，提醒http进行后续操作
                 });
