@@ -1,7 +1,6 @@
 /**
  * Created by SkyAo on 16/3/27.
  */
-// Todo: 第一版目标: 首先无视加密技术,普通的跑通整个流程(要求无错)
 
 var appConfig = require('./core/appConfig')(__dirname),
     httpConfig = require('./core/httpConfig'),

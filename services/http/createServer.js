@@ -14,6 +14,7 @@ var Post = require('../../classes/post');
 module.exports = function(onFunction, endFunction) {
     return function (request, response) {
         var header = {
+            // 提供跨域
             'Access-Control-Allow-Origin': '*',
             'Access-Control-Allow-Methods': 'GET,OPTIONS,POST,HEAD',
             "Access-Control-Allow-Headers": "Origin, Content-Type,Content-Length,Authorization, Accept,X-Requested-With",
